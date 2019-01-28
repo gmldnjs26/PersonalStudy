@@ -1,0 +1,46 @@
+--List
+
+1.ArrayList -> 번번한 객체 삭제와 삽입이 일어나는 곳에서는 적절하지 못하다.
+
+2.Vector -> ArrayList와 거의 유사하지만 method 들이 synchronized 되어 있어 Thread 안전한 것만 다르다.
+
+3.LinkedList -> ArrayList와 사용 방법은 똑같지만 내부 구조는 완전히 다르다.
+                   ArrayList는 인덱스로 관리하지만, LinkedList는 인접 참조를 링크해서 체인처럼 관리
+                   번번한 객체 삭제와 삽입이 일어나느 곳에서 적절!
+
+--Set(저장 순서x 중복x null 하나 저장 가능 iterator제공)
+
+1.HashSet -> hashCode() 비교 -> equals() 비교 같은 객체인지 아닌지
+
+2.TreeSet  -> TreeSet<E> treeSet = new TreeSet<E>(); ->검색기능이 있는 method(Set에 없는) TreeSet변수를 사용해야 한다. 
+                 binary tree사용(검색 속도 향상)
+
+--Map(key,value은 모두 객체/ key는 중복x value는 중복o)
+
+1.HashMap -> Map<K,V> map = new HashMap<K,V>();
+                   키 객체(보통 String)는 hashCode() equals()를 재정의해서 동등 객체가 될 조건을 정함
+                   Set<String> keySet = map.keySet(); Iterator it = keySet.iterator(); -> 키 값으로 접근
+                   Set<Map.Entry<String,Integer>>entrySet = map.entrySet(); Iterator it = entrySet.iterator(); -> Set얻어 접근
+
+2.HashTable -> Map<K,V>map = new HashTable<K,V>();
+                    method 들이 synchronized 되어 있어 Thread 안전한 것만 다르다.
+                    싱글코어(HashMap > HashTable) 멀티코어(HashMap < HashTable)
+
+3.Properties -> 키,값이 String타입으로 제한
+                    옵션정보,데이터베이스 연결정보,극제화정보를 기록한 텍스트파일(~.properties) 읽을때
+                     
+4.TreeMap -> TreeMap<K,V>treeMap = new TreeMap<K.V>();
+                   역시 binary tree를 기반으로한 Map 컬렉션 key값으로 정렬
+
+*Comparable, Comparator -> TreeSet과 TreeMap은 정렬을 위해 java.lang.Comparable을 구현한 객체를 요구
+                                     즉 우리가 작성하는 class에 Comparable을 정의 해줘야 정렬이 된다. ClassCastException발생
+                                   방법 1.사용자 정의 클래스가 Comparable구현 2.TreeSet, TreeMap 생성시 Comparator 구현 객체 제공
+
+--Stack 클래스 , Queue 인터페이스
+
+Stact<E> stact = new Stack<E>(); // Queue queue = new LinkedList();
+
+--병렬 처리를 위한 컬렉션(부분(segment) 잠금을 사용해서 synchronized되서 전체잠금의 비효율성을 개선한다.)
+
+Map<K,V>map = new ConcurrentHashMap<K,V>();
+Queue<E>queue = new ConcurrentLinkedQueue<E>();

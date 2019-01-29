@@ -1,0 +1,28 @@
+
+JDBC -> java database 의 연결
+(Web할 때는 oracle사용)
+파일시스템(데이터의 중복,무결성 떨어짐) 그래서 DB를 사용
+
+varchar -> 가변값
+char -> 딱 정해진 값
+
+update 할시
+Query-reconnet to server 해주고
+File-Preferences-SQL Editor Safe Updates 체크 풀어주기
+
+JAVA Build Path에 connector 파일(bin) 옮겨줘서 Libraires에 Add Extrenal JARs 로 추가
+
+
+--JDBC 연결코드--
+public static void main(String[] args) {
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java", "root", "비밀번호");
+		System.out.println("DB 연결완료");
+			
+		}catch (ClassNotFoundException e) {
+			System.out.println("JDBC 드라이버 로드 오류");
+		}catch (SQLException e) {
+			System.out.println("DB연결 오류");
+		}
+	}
